@@ -1,0 +1,62 @@
+#include <iostream>
+
+using namespace std;
+
+int n, d, i, j, nrdiv = 1, nrdivmax, nrmin, v[1001], k = 0, exponent = 0;
+bool prim[1001];
+
+int main()
+{
+    for(i = 2; i <= 1000; i ++)
+    {
+        if(prim[i] == 0)
+        {
+            k ++;
+            v[k] = i;
+            
+            for(j = 2; i * j <= 1000; j ++)
+            {
+                prim[i * j] = 1; 
+            }
+        }
+    }
+    
+    cin >> n;
+    
+    for(i = 1; i <= n; i ++)
+    {
+        int copiei = i;
+        
+        for(d = 1; i > 1, d <= k; d ++)
+        {
+            while(i % v[d] == 0)
+            {
+                i = i / v[d];
+                exponent ++;
+            }
+            
+            nrdiv = nrdiv * (exponent + 1);
+            
+            exponent = 0;
+        }
+        
+        if(i != 1)
+        {
+            nrdiv = 2;
+        }
+        
+        i = copiei;
+        
+        if(nrdiv > nrdivmax)
+        {
+            nrmin = i;
+            nrdivmax = nrdiv;
+        }
+        
+        nrdiv = 1;
+    }
+    
+    cout << nrmin;
+    
+    return 0;
+}
